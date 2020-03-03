@@ -1,0 +1,26 @@
+{
+  "FunctionName": "fn-stp-process-inbox-test",
+  "Runtime": "nodejs10.x",
+  "Role": "arn:aws:iam::801230920622:role/le-test-stp-execution",
+  "Handler": "index.handler",
+  "Description": "STP Process Inbox Test",
+  "Timeout": 5,
+  "MemorySize": 128,
+  "VpcConfig": {
+    "SubnetIds": [
+    ],
+    "SecurityGroupIds": [
+    ]
+  },
+  "Environment": {
+    "Variables": {
+      "INBOX_S3_BUCKET_NAME": "le-test-stp-raw-inbox",
+      "NODE_ENV": "production",
+      "APP_NAME": "test-fn-stp-process-inbox"
+    }
+  },
+  "KMSKeyArn": "",
+  "Tags": {
+    "KeyName": ""
+  }
+}
