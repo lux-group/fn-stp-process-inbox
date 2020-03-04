@@ -1,6 +1,6 @@
 {
   "FunctionName": "fn-stp-process-inbox-test",
-  "Runtime": "nodejs10.x",
+  "Runtime": "nodejs12.x",
   "Role": "arn:aws:iam::801230920622:role/le-test-stp-execution",
   "Handler": "index.handler",
   "Description": "STP Process Inbox Test",
