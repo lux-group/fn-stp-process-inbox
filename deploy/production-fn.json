@@ -15,6 +15,7 @@
   "Environment": {
     "Variables": {
       "INBOX_S3_BUCKET_NAME": "le-prod-stp-raw-inbox",
+      "DATA_S3_BUCKET_NAME": "le-prod-stp-email-data",
       "NODE_ENV": "production",
       "APP_NAME": "prod-fn-stp-process-inbox"
     }

@@ -37,7 +37,11 @@
     "typescript": "^3.7.5"
   },
   "dependencies": {
+    "@types/async": "^3.0.8",
+    "@types/mailparser": "^2.7.0",
     "@types/node": "^13.7.7",
-    "aws-sdk": "^2.631.0"
+    "async": "^3.2.0",
+    "aws-sdk": "^2.631.0",
+    "mailparser": "^2.7.7"
   }
 }
