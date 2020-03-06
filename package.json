@@ -18,8 +18,8 @@
     "deploy-production": "yarn deploy production dist us-west-2 infra-jenkins-fn-deploy-us",
     "deploy": "yarn update-deploy-repo && .deploy/deploy-jenkins.sh",
     "update-deploy-repo": "git clone git@github.com:brandsExclusive/infra-jenkins-fn-deploy.git --depth 1 .deploy 2> /dev/null || (cd .deploy; git pull)",
-    "logs-test": "aws2 logs tail /aws/lambda/fn-stp-process-inbox-test --follow",
-    "logs-production": "aws2 logs tail /aws/fn-stp-process-inbox-production--follow"
+    "logs-test": "aws logs tail /aws/lambda/fn-stp-process-inbox-test --follow --region us-west-2",
+    "logs-production": "aws logs tail /aws/lambda/fn-stp-process-inbox-production --follow --region us-west-2"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.8.3",
