@@ -4,8 +4,8 @@
   "Role": "arn:aws:iam::801230920622:role/le-prod-stp-execution",
   "Handler": "index.handler",
   "Description": "STP Process Inbox Production",
-  "Timeout": 5,
-  "MemorySize": 128,
+  "Timeout": 10,
+  "MemorySize": 256,
   "VpcConfig": {
     "SubnetIds": [
     ],
