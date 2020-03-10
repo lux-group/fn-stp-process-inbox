@@ -11,7 +11,7 @@
     "build": "yarn run transpile && cp package.json dist/. && cd dist && yarn install --prod",
     "transpile": "rm -rf dist && tsc",
     "test": "env $(cat .env.test) jest src && yarn run lint && yarn run transpile",
-    "lint": "eslint src test --ext .ts",
+    "lint": "eslint src --ext .ts",
     "lint-fix": "yarn run lint --fix",
     "smoke": "env $(cat .env) ts-node smoke.ts",
     "deploy-test": "yarn deploy test dist us-west-2 infra-jenkins-fn-deploy-us",
