@@ -1,5 +1,7 @@
 # Straight Through Processing (STP) Inbox Processor
 
+[![CircleCI](https://circleci.com/gh/brandsExclusive/fn-stp-process-inbox.svg?style=svg)](https://circleci.com/gh/brandsExclusive/fn-stp-process-inbox)
+
 Lambda function that reacts to new objects in an S3 bucket inbox, extracts attachment files and produces metadata JSON file and saves them to a destination S3 bucket for further downstream processing.
 
 ## Configuration
