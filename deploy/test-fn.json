@@ -1,11 +1,11 @@
 {
   "FunctionName": "fn-stp-process-inbox-test",
-  "Runtime": "nodejs10.x",
+  "Runtime": "nodejs12.x",
   "Role": "arn:aws:iam::801230920622:role/le-test-stp-execution",
   "Handler": "index.handler",
   "Description": "STP Process Inbox Test",
-  "Timeout": 5,
-  "MemorySize": 128,
+  "Timeout": 10,
+  "MemorySize": 256,
   "VpcConfig": {
     "SubnetIds": [
     ],
@@ -15,6 +15,7 @@
   "Environment": {
     "Variables": {
       "INBOX_S3_BUCKET_NAME": "le-test-stp-raw-inbox",
+      "DATA_S3_BUCKET_NAME": "le-test-stp-email-data",
       "NODE_ENV": "production",
       "APP_NAME": "test-fn-stp-process-inbox"
     }
