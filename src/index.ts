@@ -1,4 +1,5 @@
 import { S3 } from "aws-sdk";
+import { Attachment, ParsedMail } from "mailparser";
 import async from "async";
 
 import { simpleParser } from "mailparser";
@@ -25,15 +26,19 @@ export function handler(event: any, context: any, callback: any) {
   }
   const origOrg = origHeaders[0].value;
 
-  const getS3Key = (fileName: string) =>
+  const getS3Key = (fileName: string): string =>
     `${timestamp.replace(/-/g, "/")}_${origOrg}/${fileName}`;
 
-  const getAttachments = (data: any) =>
-    data.attachments.filter((a: any) => a.contentDisposition === "attachment");
+  const getAttachments = (data: ParsedMail): Attachment[] =>
+    data?.attachments
+      ? data.attachments.filter(
+          (a: Attachment) => a.contentDisposition === "attachment"
+        )
+      : [];
 
   async.waterfall(
     [
-      function getRawEmail(next: any) {
+      function getRawEmail(next: any): void {
         console.log(
           `Getting raw email ${ses.mail.messageId} from ${INBOX_S3_BUCKET_NAME} for ${origOrg}`
         );
@@ -45,11 +50,11 @@ export function handler(event: any, context: any, callback: any) {
           next
         );
       },
-      function parseEmail(response: any, next: any) {
+      function parseEmail(response: any, next: any): void {
         console.log("Parsing raw email...");
         simpleParser(response.Body, {}, next);
       },
-      function writeMetadata(data: any, next: any) {
+      function writeMetadata(data: any, next: any): void {
         console.log("Writing Attachments...");
         getAttachments(data).forEach((a: any) => {
           s3.putObject(
@@ -58,7 +63,7 @@ export function handler(event: any, context: any, callback: any) {
               Key: getS3Key(a.filename),
               Body: a.content
             },
-            (err: any, data: any) => {
+            (err: any) => {
               if (err) {
                 next(err);
               }
