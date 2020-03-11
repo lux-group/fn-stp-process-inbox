@@ -34,7 +34,7 @@ export const handler = async (event: SESEvent): Promise<string> => {
   const origOrg = origHeaders[0].value;
 
   const getS3Key = (fileName: string): string =>
-    `${timestamp.replace(/-/g, "/")}_${origOrg}/${fileName}`;
+    `${timestamp.replace(/-/g, "/").replace(/:/g, "-")}_${origOrg}/${fileName}`;
 
   console.log(
     `Getting raw email ${ses.mail.messageId} from ${INBOX_S3_BUCKET_NAME} for ${origOrg}`
