@@ -26,18 +26,31 @@ export const handler = async (event: SESEvent): Promise<string> => {
   const { timestamp } = ses.mail;
 
   const { headers }: { headers: Header[] } = ses.mail;
-  const origHeaders = headers.filter(h => h.name === "X-OriginatorOrg");
+  const origHeaders = headers.filter(h => h.name === "From");
 
   if (origHeaders.length == 0 || !origHeaders[0].value) {
-    return "Error: X-OriginatorOrg missing from email.";
+    const err = "Error: 'From' header missing from email.";
+    console.log(err);
+    console.log(JSON.stringify(ses, null, 2));
+    return err;
   }
-  const origOrg = origHeaders[0].value;
+  const originatorMatch = origHeaders[0].value.match(/@([\w\.]+)/);
+  if (!originatorMatch || originatorMatch?.length < 2) {
+    const err = "Error: Could not determine domain part of email.";
+    console.log(err);
+    console.log(JSON.stringify(ses, null, 2));
+    return err;
+  }
+
+  const originator = originatorMatch[1];
 
   const getS3Key = (fileName: string): string =>
-    `${timestamp.replace(/-/g, "/")}_${origOrg}/${fileName}`;
+    `${timestamp
+      .replace(/-/g, "/")
+      .replace(/:/g, "-")}_${originator}/${fileName}`;
 
   console.log(
-    `Getting raw email ${ses.mail.messageId} from ${INBOX_S3_BUCKET_NAME} for ${origOrg}`
+    `Getting raw email ${ses.mail.messageId} from ${INBOX_S3_BUCKET_NAME} for ${originator}`
   );
   try {
     rawEmailResponse = await s3
