@@ -39,7 +39,7 @@
     "typescript": "^3.7.5"
   },
   "dependencies": {
-    "aws-sdk": "^2.631.0",
+    "aws-sdk": "^2.814.0",
     "mailparser": "^2.7.7"
   }
 }
